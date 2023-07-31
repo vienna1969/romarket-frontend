@@ -1,0 +1,12 @@
+User-agent: *
+Disallow: /admin
+Disallow: /secret-page
+Disallow: /private-folder/
+Disallow: /download/
+Disallow: /cgi-bin/
+Disallow: /tmp/
+Disallow: /temp/
+Disallow: /backup/
+Disallow: /log/
+
+Sitemap: https://www.cryptogameplace.com/sitemap.xml
