@@ -26,7 +26,7 @@ import {
 import {
     nftDropContractAddressNpc,
     //stakingContractAddressHorseAAA,
-    tokenContractAddressGCOW,
+    tokenContractAddressROM,
 } from '@/config/contractAddresses';
 
 import {

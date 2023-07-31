@@ -64,9 +64,9 @@ export const marketplaceContractAddress =
 export const marketplaceContractAddressChaoscube =
   '0xcc68084a1976195168D6874915FD8932094a46a9'; // chaoscube
 
-// GameCow Token (GCOW)
-export const tokenContractAddressGCOW =
-  '0x81e6F303C1913f60488f2E01CA868e500b0F5F69';
+// ROM Token (ROM)
+export const tokenContractAddressROM =
+  '0x886b480c34BF4a0DeF1B2d0B8a0B3a88DDBF3A73';
 
 // USDC Token (USDC)
 export const tokenContractAddressUSDC =

@@ -23,7 +23,7 @@ import {
 import {
   //nftDropContractAddressNpc,
   //stakingContractAddressHorseAAA,
-  tokenContractAddressGCOW,
+  tokenContractAddressROM,
 } from '@/config/contractAddresses';
 
 
@@ -67,7 +67,7 @@ export default function Navbar({ user, settings, getBalance }: { user: IUser | n
   const address = useAddress();
 
   const { contract: tokenContractGCOW } = useContract(
-      tokenContractAddressGCOW,
+      tokenContractAddressROM,
       'token',
   );
   const { data: tokenBalanceGCOW } = useTokenBalance(tokenContractGCOW, address);

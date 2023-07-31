@@ -26,7 +26,7 @@ import {
 import {
     nftDropContractAddressNpc,
     //stakingContractAddressHorseAAA,
-    tokenContractAddressGCOW,
+    tokenContractAddressROM,
 } from '@/config/contractAddresses';
 
 import {
@@ -66,7 +66,7 @@ import {
   
   ///const urlParams = new URL(window.location.toString()).searchParams;
   //const contractAddress = urlParams.get("contract") || contractConst || "";
-  const contractAddress = tokenContractAddressGCOW;
+  const contractAddress = tokenContractAddressROM;
 
   //const primaryColor =
   //  urlParams.get("primaryColor") || primaryColorConst || undefined;
@@ -102,7 +102,7 @@ export default function MyProfile({ user, settings }: { user: IUser | null, sett
     const address = useAddress();
 
     const { contract: tokenContractGCOW } = useContract(
-        tokenContractAddressGCOW,
+        tokenContractAddressROM,
         'token',
     );
     const { data: tokenBalanceGCOW } = useTokenBalance(tokenContractGCOW, address);
