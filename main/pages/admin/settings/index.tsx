@@ -341,6 +341,7 @@ export default function Admin({
         </div>
         {/* Breadcrumb End Here */}
 
+        {/*
         <div className="w-full p-4 flex flex-col lg:flex-row justify-between gap-2">
           <div className="w-full p-2 items-center justify-center gap-1 bg-gray-900 shadow rounded-md flex flex-col">
             <h6>Logo</h6>
@@ -358,6 +359,7 @@ export default function Admin({
               {isLoadingLogo ? <ImSpinner9 className='animate-spin' /> : 'Change'}
             </Button>
           </div>
+          
           <div className="w-full p-2 items-center justify-center gap-1 bg-gray-900 shadow rounded-md flex flex-col">
             <h6>Favicon</h6>
             <input
@@ -393,7 +395,11 @@ export default function Admin({
               {isLoadingUser ? <ImSpinner9 className='animate-spin' /> : 'Change'}
             </Button>
           </div>
+         
+
         </div>
+         */}
+        
 
         <div className="bg-gray-900 p-3 flex flex-col lg:flex-row gap-2">
           <div className="w-full">
@@ -496,7 +502,7 @@ export default function Admin({
                 name="welcome"
                 
                 //label={`New User Welcome Bonus (${tokenSettings.symbol})`}
-                label={`New User Welcome Bonus (GCOW)`}
+                label={`New User Welcome Bonus (ROM)`}
 
                 className="w-full"
                 variant="outlined"
@@ -534,6 +540,8 @@ export default function Admin({
               </Button>
             </div>
           </div>
+
+          {/*
           <div className="w-full">
             <form onSubmit={handleUpdateNetworkSettings}>
               <div className="w-full flex-col flex gap-5">
@@ -738,6 +746,10 @@ export default function Admin({
               </div>
             </form>
           </div>
+          */}
+
+
+
         </div>
       </div>
     </div >

@@ -101,11 +101,11 @@ export default function MyProfile({ user, settings }: { user: IUser | null, sett
 
     const address = useAddress();
 
-    const { contract: tokenContractGCOW } = useContract(
+    const { contract: tokenContractROM } = useContract(
         tokenContractAddressROM,
         'token',
     );
-    const { data: tokenBalanceGCOW } = useTokenBalance(tokenContractGCOW, address);
+    const { data: tokenBalanceROM } = useTokenBalance(tokenContractROM, address);
 
 
     const handleChangePassword = async () => {

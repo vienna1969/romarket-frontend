@@ -367,11 +367,18 @@ export default function Users({
             </div>
 
           </DialogContent>
+
+
           <DialogActions>
+            {/*
             <Button color='error' onClick={deleteUser} disabled={demo} >Delete</Button>
+            */}
             <Button onClick={handleClose} disabled={demo}>Close</Button>
+            
             <Button color='success' onClick={updateUser} disabled={demo}>Save</Button>
+            
           </DialogActions>
+
         </Dialog>
       )}
     </>

@@ -14,7 +14,7 @@ export default function AdminSidebar() {
     <div className="sidebar fixed top-0 bottom-0  p-2 w-[80px] lg:w-[350px]  overflow-y-auto text-center bg-gray-900">
       <div className="text-gray-100 text-xl">
         <div className="p-2.5 mt-1  items-center justify-center lg:flex hidden">
-          <Image src="/logo/logo.png" width="200" height="100" alt="logo" />
+          <Image src="/logo/logo.png" width="80" height="80" alt="logo" />
           <i className="bi bi-x cursor-pointer ml-28 lg:hidden"></i>
         </div>
         <div className="my-2 bg-gray-600 h-[1px]"></div>
@@ -46,6 +46,8 @@ export default function AdminSidebar() {
           Settings
         </span>
       </Link>
+
+      {/*
       <Link
         href={"/admin/gameSettings"}
         className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
@@ -73,6 +75,8 @@ export default function AdminSidebar() {
           Withdraw Requests
         </span>
       </Link>
+      */}
+
       <Link
         href={"/admin/settings/texts"}
         className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"

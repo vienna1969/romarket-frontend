@@ -10,12 +10,16 @@ import { myGetServerSideProps } from "@/helpers";
 
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+
   const { user, settings }: any = await myGetServerSideProps(context)
+
   if (!user.admin) {
     return { redirect: { destination: '/', permanent: false } }
   }
   const usersResponse = await fetch(process.env.API_URL + '/api/user?method=getUserCount')
   const users = await usersResponse.json()
+
+  console.log(users)
 
 
   return {
@@ -105,7 +109,9 @@ export default function Admin({
   return (
     <div className="flex" >
       <div className="w-[80px] lg:w-[453px] p-2"></div>
+
       <Sidebar />
+      
       <div className="w-full p-10 gap-2 flex flex-col">
         {/* Breadcrumb Start Here */}
         <div className="bg-gray-900 p-3 rounded-md">
@@ -121,10 +127,14 @@ export default function Admin({
         {/* Breadcrumb End Here */}
 
         <div className="bg-gray-900 p-3 flex flex-col md:flex-row gap-2">
+
           <div className="bg-white/10 p-2 w-full rounded-sm">
             <Typography className="text-white" variant="h6">Total Users</Typography>
             <Typography className="text-white" variant="h4">{usersCount}</Typography>
           </div>
+
+
+          {/*
           <div className="bg-white/10 p-2 w-full rounded-sm">
             <Typography className="text-white" variant="h6">Withdraw Type</Typography>
             <div className="w-full flex justify-between">
@@ -139,7 +149,11 @@ export default function Admin({
               <button disabled={demo} className="bg-white/20 p-2 rounded" onClick={changeChat}>Change</button>
             </div>
           </div>
+          */}
+
         </div>
+
+        {/*
         <div className="p-4 bg-gray-900 rounded-sm flex flex-col w-full gap-3">
           <Typography className="text-white" variant="h6">Games Status</Typography>
           <div className="w-full flex flex-col md:flex-row items-center justify-between gap-10">
@@ -174,6 +188,8 @@ export default function Admin({
             </div>
           </div>
         </div>
+        */}
+
       </div>
     </div >
   );

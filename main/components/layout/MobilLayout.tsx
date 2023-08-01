@@ -32,11 +32,11 @@ export default function MobileNavbar({ user, userBalance, coinSymbol }: { user: 
     
     const address = useAddress();
 
-    const { contract: tokenContractGCOW } = useContract(
+    const { contract: tokenContractROM } = useContract(
         tokenContractAddressROM,
         'token',
     );
-    const { data: tokenBalanceGCOW } = useTokenBalance(tokenContractGCOW, address);
+    const { data: tokenBalanceROM } = useTokenBalance(tokenContractROM, address);
     
     const disconnect = useDisconnect();
 
@@ -45,7 +45,7 @@ export default function MobileNavbar({ user, userBalance, coinSymbol }: { user: 
             <header className="lg:hidden w-full flex flex-col items-center sticky top-0 z-50 px-5 h-24 bg-[#24252F]">
                 <nav className=' w-full flex  items-center gap-2  '>
                     <Link href={"/"}>
-                        <Image src={"/logo/logo.png"} width={100} height={100} alt="logo" />
+                        <Image src={"/logo/logo.png"} width={35} height={35} alt="logo" />
                     </Link>
 
                     <div className='w-full p-2 flex items-center justify-end gap-3'>
@@ -165,9 +165,9 @@ export default function MobileNavbar({ user, userBalance, coinSymbol }: { user: 
                 {address && (
                     <div
                         className={`flex items-center justify-center w-full bg-black rounded-md text-center px-5 text-[#BA8E09] border border-[#BA8E09] `}
-                        title={`${Number(tokenBalanceGCOW?.displayValue).toFixed(2)} ${tokenBalanceGCOW?.symbol}`}
+                        title={`${Number(tokenBalanceROM?.displayValue).toFixed(2)} ${tokenBalanceROM?.symbol}`}
                     >
-                        {`${Number(tokenBalanceGCOW?.displayValue).toFixed(2)}`}&nbsp;<span className="text-[#9293A6]">{" "}{tokenBalanceGCOW?.symbol}</span>
+                        {`${Number(tokenBalanceROM?.displayValue).toFixed(2)}`}&nbsp;<span className="text-[#9293A6]">{" "}{tokenBalanceROM?.symbol}</span>
                     </div>
                 )}
 

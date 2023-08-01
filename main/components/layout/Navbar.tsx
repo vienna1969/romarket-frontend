@@ -66,11 +66,11 @@ export default function Navbar({ user, settings, getBalance }: { user: IUser | n
 
   const address = useAddress();
 
-  const { contract: tokenContractGCOW } = useContract(
+  const { contract: tokenContractROM } = useContract(
       tokenContractAddressROM,
       'token',
   );
-  const { data: tokenBalanceGCOW } = useTokenBalance(tokenContractGCOW, address);
+  const { data: tokenBalanceROM } = useTokenBalance(tokenContractROM, address);
   
 
   
@@ -80,7 +80,7 @@ export default function Navbar({ user, settings, getBalance }: { user: IUser | n
       <header className="hidden lg:flex items-center justify-center w-full h-20 bg-[#24252F] sticky top-0 z-50 ">
         <div className="flex flex-col gap-3 items-center justify-center w-[250px] absolute top-0 bg-[#24252F] rounded-lg h-full z-50  ">
           <Link href={"/"} className="hover:opacity-50">
-            <Image src={"/logo/logo.png"} alt="crypto game place" width={150} height={20} />
+            <Image src={"/logo/logo.png"} alt="crypto game place" width={30} height={20} />
           </Link>
           <div className=" font-normal text-xs text-gray-200 tracking-widest">{settings?.settings.general.logoText}</div>
         </div>
@@ -118,9 +118,9 @@ export default function Navbar({ user, settings, getBalance }: { user: IUser | n
             {address && (
                 <div
                 className={`flex items-center justify-center  bg-black rounded-md h-[36px] text-center px-5 text-[#BA8E09] border border-[#BA8E09] `}
-                    title={`${Number(tokenBalanceGCOW?.displayValue).toFixed(2)} ${tokenBalanceGCOW?.symbol}`}
+                    title={`${Number(tokenBalanceROM?.displayValue).toFixed(2)} ${tokenBalanceROM?.symbol}`}
                 >
-                    {`${Number(tokenBalanceGCOW?.displayValue).toFixed(2)}`}&nbsp;<span className="text-[#9293A6]">{" "}{tokenBalanceGCOW?.symbol}</span>
+                    {`${Number(tokenBalanceROM?.displayValue).toFixed(2)}`}&nbsp;<span className="text-[#9293A6]">{" "}{tokenBalanceROM?.symbol}</span>
                 </div>
             )}
 
