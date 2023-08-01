@@ -46,7 +46,7 @@ export default function Home({ user, settings }: { user: IUser | null, settings:
                   <h2 className='font-bold'>{settings?.texts?.index.game2Title ?? "Coin Flip"}</h2>
                   <p className='text-sm italic my-5'>{settings?.texts?.index.game2Description ?? "Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, itaque."}</p>
                   <Link href={'/admin'} className='emerald-btn p-2 px-4 duration-300 transition-all'>
-                    Play
+                    Login
                   </Link>
                 </div>
                 <MyLottiePlayer src={'/coinFlip/coinFlip.json'} width={200} height={200} />
