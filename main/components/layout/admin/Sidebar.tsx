@@ -28,6 +28,7 @@ export default function AdminSidebar() {
           Dashboard
         </span>
       </Link>
+
       <Link
         href={"/admin/users"}
         className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
@@ -37,6 +38,19 @@ export default function AdminSidebar() {
           Users
         </span>
       </Link>
+
+      <Link
+        href={"/admin/withdraw-requests"}
+        className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
+      >
+        <RequestPageIcon />
+        <span className="text-[15px] ml-4 text-gray-200 font-bold lg:block hidden">
+          Withdraw Requests
+        </span>
+      </Link>
+
+      <div className="my-4 bg-gray-600 h-[1px]"></div>
+
       <Link
         href={"/admin/settings"}
         className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
@@ -46,6 +60,8 @@ export default function AdminSidebar() {
           Settings
         </span>
       </Link>
+
+
 
       {/*
       <Link
@@ -57,6 +73,8 @@ export default function AdminSidebar() {
           Game Settings
         </span>
       </Link>
+      */}
+
       <Link
         href={"/admin/network"}
         className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
@@ -66,16 +84,9 @@ export default function AdminSidebar() {
           Network Settings
         </span>
       </Link>
-      <Link
-        href={"/admin/withdraw-requests"}
-        className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
-      >
-        <RequestPageIcon />
-        <span className="text-[15px] ml-4 text-gray-200 font-bold lg:block hidden">
-          Withdraw Requests
-        </span>
-      </Link>
-      */}
+
+
+      {/*
 
       <Link
         href={"/admin/settings/texts"}
@@ -86,8 +97,19 @@ export default function AdminSidebar() {
           Page Texts
         </span>
       </Link>
+            */}
 
       <div className="my-4 bg-gray-600 h-[1px]"></div>
+
+      <Link
+        href={"/admin/administrators"}
+        className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
+      >
+        <GroupIcon />
+        <span className="text-[15px] ml-4 text-gray-200 font-bold lg:block hidden">
+          Administrators
+        </span>
+      </Link>
 
       <Link
         href={"/"}

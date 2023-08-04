@@ -11,6 +11,8 @@ import { GetServerSidePropsContext } from 'next';
 import { ISettings } from '@/utils/interfaces/settings-interface';
 import { myGetServerSideProps } from '@/helpers';
 
+import Link from 'next/link'
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { user, settings }: any = await myGetServerSideProps(context)
     return {
@@ -153,16 +155,9 @@ export default function Register({ settings }: { settings: ISettings | null }) {
                                             <ConnectButton />
                                             */}
 
-                                            <label className="label" htmlFor='username'>
-                                                <span className="label-text text-lg">Username</span>
-                                            </label>
-                                            <input
-                                                type="username"
-                                                id="username"
-                                                className="p-1 w-full text-lg bg-gray-200 rounded-md text-gray-700"
-                                            />
+
                                             <label className="label" htmlFor='email'>
-                                                <span className="label-text text-lg">E-Mail</span>
+                                                <span className="label-text text-lg">E-Mail (Login ID)</span>
                                             </label>
                                             <input
                                                 type="email"
@@ -186,6 +181,19 @@ export default function Register({ settings }: { settings: ISettings | null }) {
                                                 id="pass2"
                                                 className="p-1 w-full text-lg bg-gray-200 rounded-md text-gray-700"
                                             />
+
+                                            <label className="label" htmlFor='username'>
+                                                <span className="label-text text-lg">Username</span>
+                                                {' '}<span className="label-text text-sm text-gray-400">
+                                                    (This will be your display name)
+                                                </span>
+                                            </label>
+                                            <input
+                                                type="username"
+                                                id="username"
+                                                className="p-1 w-full text-lg bg-gray-200 rounded-md text-gray-700"
+                                            />
+
                                         </div>
                                         <button
                                             onClick={() => {
@@ -195,6 +203,13 @@ export default function Register({ settings }: { settings: ISettings | null }) {
                                         >
                                             Register
                                         </button>
+                                        <Link
+                                            className="p-2 px-4 rounded-md gold-btn text-gray-900 text-xs duration-300 transition-all "
+                                            href={"/login"}
+                                        >
+                                            Go to login
+                                        </Link>
+    
                                     </>
                                 ) : (
                                     <>

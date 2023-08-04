@@ -26,7 +26,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     props: {
       user: user,
       settings: settings ?? null,
-      usersCount: users.count
+      ////usersCount: users.count
+
+      usersCount: 0
     }
   }
 }
@@ -40,6 +42,8 @@ export default function Admin({
   settings: ISettings | null;
   usersCount: number
 }) {
+
+
   const [withdrawType, setWithdrawType] = useState(settings?.requestType);
   
   const [chat, setChat] = useState(settings?.chat);

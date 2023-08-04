@@ -43,7 +43,11 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Users({
+
+
+
+
+export default function administrators({
   user,
   settings,
   users
@@ -77,18 +81,22 @@ export default function Users({
   const updateUser = async () => {
     let username = (document.getElementById("username") as HTMLInputElement).value
     let email = (document.getElementById("email") as HTMLInputElement).value
+    /*
     let walletAddress = (document.getElementById("walletAddress") as HTMLInputElement).value
     let coinBalance = (document.getElementById("coinBalance") as HTMLInputElement).value
     let maticBalance = (document.getElementById("maticBalance") as HTMLInputElement).value
+    */
     let admin = (document.getElementById("admin") as HTMLInputElement).checked
 
     const formInputs = {
       _id: selectedUser.kayitId,
       username: username,
       email: email,
+      /*
       walletAddress: walletAddress,
       deposit: coinBalance,
       maticBalance: maticBalance,
+      */
       admin: admin,
       pass1: selectedUser.pass1,
       pass2: selectedUser.pass2,
@@ -158,16 +166,14 @@ export default function Users({
       align: "center",
       headerAlign: "center",
     },
-    /*
     {
       field: "username",
-      headerName: "Username",
+      headerName: "Username(Login ID)",
       flex: 0.2,
       minWidth: 150,
       align: "center",
       headerAlign: "center",
     },
-    */
     {
       field: "email1",
       headerName: "email",
@@ -176,14 +182,7 @@ export default function Users({
       align: "center",
       headerAlign: "center",
     },
-    {
-      field: "wallet",
-      headerName: "wallet",
-      flex: 0.2,
-      minWidth: 150,
-      align: "center",
-      headerAlign: "center",
-    },
+    /*
     {
       field: "coin",
       headerName: "Coin balance",
@@ -192,7 +191,6 @@ export default function Users({
       align: "center",
       headerAlign: "center",
     },
-    /*
     {
       field: "matic",
       headerName: "Matic Balance",
@@ -201,8 +199,7 @@ export default function Users({
       align: "center",
       headerAlign: "center",
     },
-
-
+    */
     {
       field: "admin",
       headerName: "Admin",
@@ -215,7 +212,6 @@ export default function Users({
         return <Chip label={`${params.value ? "Admin" : "User"}`} color={`${params.value ? "success" : "info"}`} />;
       },
     },
-    */
     {
       field: "action",
       headerName: "Edit",
@@ -296,6 +292,8 @@ export default function Users({
               />
             </div>
           </div>
+
+          {/*
           <div className="bg-gray-900 w-full h-full p-3 flex flex-col gap-2 relative">
             <Typography variant="h6" className="text-white">
               Make Airdrop to all users
@@ -315,6 +313,7 @@ export default function Users({
             />
             <Button disabled={demo} className="bg-blue-500" variant="contained" color="primary" onClick={airdrop}> Airdrop </Button>
           </div>
+          */}
         </div>
       </div>
       {selectedUser && (
@@ -325,9 +324,8 @@ export default function Users({
           onClose={handleClose}
           aria-describedby="alert-dialog-slide-description"
         >
-          <DialogTitle> User Edit Form</DialogTitle>
+          <DialogTitle> Administrator Edit Form</DialogTitle>
           <DialogContent className='space-y-3'>
-            {/*
             <TextField
               autoFocus
               margin="dense"
@@ -339,7 +337,6 @@ export default function Users({
               color='secondary'
               variant="standard"
             />
-            */}
             <TextField
               autoFocus
               margin="dense"
@@ -351,6 +348,7 @@ export default function Users({
               color='secondary'
               variant="standard"
             />
+            {/*
             <TextField
               autoFocus
               margin="dense"
@@ -373,7 +371,6 @@ export default function Users({
               color='secondary'
               variant="standard"
             />
-            {/*
             <TextField
               autoFocus
               margin="dense"
@@ -385,13 +382,12 @@ export default function Users({
               color='secondary'
               variant="standard"
             />
-            
+            */}
 
             <div className='flex gap-1 items-center'>
               <input type="checkbox" defaultChecked={selectedUser?.admin} id='admin' className="checkbox checkbox-primary" />
               <p>Admin?</p>
             </div>
-            */}
 
           </DialogContent>
 

@@ -105,7 +105,7 @@ export default function Login({ settings }: { settings: ISettings | null }) {
                             </div>
                             <div className="flex flex-col gap-2 w-full">
                                 <label className="label" htmlFor='email'>
-                                    <span className="label-text text-lg">E-Mail</span>
+                                    <span className="label-text text-lg">E-Mail (Login ID)</span>
                                 </label>
                                 <input
                                     type="email"
@@ -129,6 +129,12 @@ export default function Login({ settings }: { settings: ISettings | null }) {
                             >
                                 Login
                             </button>
+                            <Link
+                                className="p-2 px-4 rounded-md gold-btn text-gray-900 text-xs duration-300 transition-all "
+                                href={"/"}
+                            >
+                                Go to Home
+                            </Link>
                         </div>
                     </div>
 
