@@ -47,7 +47,7 @@ const Transition = React.forwardRef(function Transition(
 
 
 
-export default function administrators({
+export default function Administrators({
   user,
   settings,
   users
