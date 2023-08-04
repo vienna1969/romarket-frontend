@@ -275,7 +275,7 @@ export default function Administrators({
                 <DashboardIcon className="mr-2" />
                 Dashboard
               </Link>
-              <Typography color="text.primary">Users</Typography>
+              <Typography color="text.primary">Administrators</Typography>
             </Breadcrumbs>
           </div>
           {/* Breadcrumb End Here */}
