@@ -27,7 +27,20 @@ const Transition = React.forwardRef(function Transition(
 
 
 
-export default function WithdrawRequestPage({ user, settings, withdrawRequests }: { user: IUser, settings: ISettings | null, withdrawRequests: any }) {
+export default function WithdrawRequestPage(
+    { 
+        //user,
+        settings,
+        withdrawRequests
+    }
+    :
+    { 
+        //user: IUser,
+        settings: ISettings | null,
+        withdrawRequests: any
+    }
+    ) {
+
     const [selectedRequest, setSelectedRequest] = useState<any>(null)
     const [open, setOpen] = useState<boolean>(false);
     const [requests, setRequests] = useState<any>(withdrawRequests)
@@ -203,7 +216,7 @@ export default function WithdrawRequestPage({ user, settings, withdrawRequests }
                                 <DashboardIcon className="mr-2" />
                                 Dashboard
                             </Link>
-                            <Typography color="text.primary">Withdraw Requests</Typography>
+                            <Typography color="text.primary">Buy Requests</Typography>
                         </Breadcrumbs>
                     </div>
                     {/* Breadcrumb End Here */}
@@ -340,11 +353,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     const { req, res } = context;
     const { token } = req.cookies;
+
     const requestResponse = await fetch(`${process.env.API_URL}/api/withdrawRequest?method=all&userToken=${token}`)
     const requests = await requestResponse.json()
     return {
         props: {
-            user: user,
+            //user: user,
             settings: settings ?? null,
             withdrawRequests: requests.requests ?? null
         }

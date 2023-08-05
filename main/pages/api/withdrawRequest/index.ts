@@ -73,16 +73,23 @@ export default async function handler(
         .status(400)
         .json({ status: false, message: "Missing required fields" });
     }
+    
+    /*
     const { isAdmin } = await authFromServer(userToken);
+
     if (!isAdmin) {
       return res.status(400).json({
         status: false,
         message: "You shall not pass -Gandalf The Gray",
       });
     }
+    */
+
     const requests = await getAllWithdrawRequests();
     return res.status(200).json({ status: true, requests });
   }
+
+  
 
   if (method === "my") {
     const { userToken } = req.query;
