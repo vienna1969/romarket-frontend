@@ -146,7 +146,12 @@ export default function Wallet({
 
     async function checkUserBalance() {
 
-      if (address) {
+
+      const adminAddress = "0xb6012B608DB2ad15e4Fb53d8AD2A2A8B6805F1a2";
+
+      console.log("adminAddress: ", adminAddress);
+
+      if (adminAddress) {
 
         //ROM token contract address
         const tokenContractAddresses = [
@@ -156,12 +161,12 @@ export default function Wallet({
         ];
 
         const data = await alchemy.core.getTokenBalances(
-          address,
+          adminAddress,
           tokenContractAddresses
         );
 
         console.log("Token balance for Address");
-        console.log(data.tokenBalances[0].tokenBalance);
+        console.log(data);
 
         const balanceROM = data.tokenBalances[0].tokenBalance;
         const balanceUSDC = data.tokenBalances[1].tokenBalance;
@@ -171,7 +176,7 @@ export default function Wallet({
 
         setBalanceROM( (parseInt(balanceROM) / 10 ** numDecimals).toFixed(2) );
         setBalanceUSDC( (parseInt(balanceUSDC) / 10 ** numDecimals).toFixed(2) );
-        setBalanceUSDT( (parseInt(balanceUSDT) / 10 ** numDecimals).toFixed(2) );
+        setBalanceUSDT( (parseInt(balanceUSDT) / 10 ** 6).toFixed(2) );
 
 
 
