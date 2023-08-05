@@ -64,7 +64,7 @@ export default function Admin({
   settings,
   usersCount
 }: {
-  user: IUser;
+  //user: IUser;
   settings: ISettings | null;
   usersCount: number
 }) {
