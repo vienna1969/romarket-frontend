@@ -174,9 +174,9 @@ export default function Wallet({
 
         const numDecimals = 18;
 
-        setBalanceROM( (parseInt(balanceROM) / 10 ** numDecimals).toFixed(2) );
-        setBalanceUSDC( (parseInt(balanceUSDC) / 10 ** numDecimals).toFixed(2) );
-        setBalanceUSDT( (parseInt(balanceUSDT) / 10 ** 6).toFixed(2) );
+        setBalanceROM( (parseInt(balanceROM ?? "0") / 10 ** numDecimals).toFixed(2) );
+        setBalanceUSDC( (parseInt(balanceUSDC ?? "0") / 10 ** numDecimals).toFixed(2) );
+        setBalanceUSDT( (parseInt(balanceUSDT ?? "0") / 10 ** 6).toFixed(2) );
 
 
 
