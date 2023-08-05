@@ -29,7 +29,7 @@ export default async function myGetServerSideProps(context: GetServerSidePropsCo
 
   
 
-
+  /*
   if (token) {
 
     const hasToken = await authFromServer(token);
@@ -66,4 +66,11 @@ export default async function myGetServerSideProps(context: GetServerSidePropsCo
     }
 
   }
+  */
+
+  return {
+    user: null,
+    settings: settings.settings[0],
+  }
+
 }
