@@ -331,9 +331,12 @@ export default function WithdrawRequestPage({ user, settings, withdrawRequests }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { user, settings }: any = await myGetServerSideProps(context)
+
+    /*
     if (!user.admin) {
         return { redirect: { destination: '/', permanent: false } }
     }
+    */
 
     const { req, res } = context;
     const { token } = req.cookies;

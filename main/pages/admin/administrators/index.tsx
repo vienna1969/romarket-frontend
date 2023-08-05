@@ -16,10 +16,14 @@ import { myGetServerSideProps } from "@/helpers";
 
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+
   const { user, settings }: any = await myGetServerSideProps(context)
+
+  /*
   if (!user.admin) {
     return { redirect: { destination: '/', permanent: false } }
   }
+  */
 
   const usersResponse = await fetch(process.env.API_URL + '/api/user?method=getAll');
   const users = await usersResponse.json();

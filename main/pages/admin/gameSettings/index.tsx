@@ -510,9 +510,12 @@ export default function GameSettings({ coinFlipSettings, horseNames, rouletteInp
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { user, settings }: any = await myGetServerSideProps(context)
+
+    /*
     if (!user.admin) {
         return { redirect: { destination: '/', permanent: false } }
     }
+    */
 
     const getCoinFlipSettings = await fetch(process.env.API_URL + `/api/games/coinFlip/settings?method=all`)
     const coinFlipSettings = await getCoinFlipSettings.json();

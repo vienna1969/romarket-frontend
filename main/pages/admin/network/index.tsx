@@ -23,9 +23,11 @@ const Item = styled(Paper)(({ theme }) => ({
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { user, settings }: any = await myGetServerSideProps(context)
   
+  /*
   if (!user.admin) {
     return { redirect: { destination: '/', permanent: false } }
   }
+  */
   return {
     props: {
       user: user,
