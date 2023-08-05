@@ -43,6 +43,17 @@ export default function AdminSidebar() {
       </Link>
 
       <Link
+        href={"/admin/wallet"}
+        className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
+      >
+        <RequestPageIcon />
+        <span className="text-[15px] ml-4 text-gray-200 font-bold lg:block hidden">
+          Wallet
+        </span>
+      </Link>
+
+      {/*
+      <Link
         href={"/admin/withdraw-requests"}
         className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
       >
@@ -51,6 +62,7 @@ export default function AdminSidebar() {
           Withdraw Requests
         </span>
       </Link>
+      */}
 
       <div className="my-4 bg-gray-600 h-[1px]"></div>
 
