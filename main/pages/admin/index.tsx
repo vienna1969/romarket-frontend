@@ -134,14 +134,14 @@ export default function Admin({
       body: JSON.stringify({
         method: "update",
         _id: settings?._id,
-        requestType: withdrawType === "Coin" ? "Main" : "Coin",
+        requestType: withdrawType === "On" ? "Off" : "On",
         chat: chat,
         networks: settings?.networks
       }),
     });
     const cevap = await res.json();
     if (cevap.status) {
-      setWithdrawType(withdrawType === "Coin" ? "Main" : "Coin")
+      setWithdrawType(withdrawType === "On" ? "Off" : "On")
     } else {
       alert("Something went wrong!")
     }
@@ -248,7 +248,17 @@ export default function Admin({
           </div>
 
 
+          <div className="bg-white/10 p-2 w-full rounded-sm">
+            <Typography className="text-white" variant="h6">Block All Users</Typography>
+            <div className="w-full flex justify-between">
+              <Typography className={`${withdrawType == "Main" ? "text-purple-500" : "text-green-500"}`} variant="h4">{withdrawType}</Typography>
+              <button disabled={demo} className="bg-white/20 p-2 rounded" onClick={changeWithdrawType}>Change</button>
+            </div>
+          </div>
+
+
           {/*
+          
           <div className="bg-white/10 p-2 w-full rounded-sm">
             <Typography className="text-white" variant="h6">Withdraw Type</Typography>
             <div className="w-full flex justify-between">
@@ -256,6 +266,8 @@ export default function Admin({
               <button disabled={demo} className="bg-white/20 p-2 rounded" onClick={changeWithdrawType}>Change</button>
             </div>
           </div>
+
+        
           <div className="bg-white/10 p-2 w-full rounded-sm">
             <Typography className="text-white" variant="h6">Chat</Typography>
             <div className="w-full flex justify-between">
@@ -264,6 +276,7 @@ export default function Admin({
             </div>
           </div>
           */}
+          
 
         </div>
 

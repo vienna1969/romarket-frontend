@@ -345,6 +345,8 @@ export default function Admin({
 
         {/*
         <div className="w-full p-4 flex flex-col lg:flex-row justify-between gap-2">
+
+          
           <div className="w-full p-2 items-center justify-center gap-1 bg-gray-900 shadow rounded-md flex flex-col">
             <h6>Logo</h6>
             <input
@@ -397,10 +399,11 @@ export default function Admin({
               {isLoadingUser ? <ImSpinner9 className='animate-spin' /> : 'Change'}
             </Button>
           </div>
-         
+               
 
         </div>
          */}
+  
         
 
         <div className="bg-gray-900 p-3 flex flex-col lg:flex-row gap-2">

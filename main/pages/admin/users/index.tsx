@@ -83,8 +83,11 @@ export default function Users({
     let email = (document.getElementById("email") as HTMLInputElement).value
     let walletAddress = (document.getElementById("walletAddress") as HTMLInputElement).value
     let coinBalance = (document.getElementById("coinBalance") as HTMLInputElement).value
-    let maticBalance = (document.getElementById("maticBalance") as HTMLInputElement).value
-    let admin = (document.getElementById("admin") as HTMLInputElement).checked
+    let coinBalance2 = (document.getElementById("coinBalance2") as HTMLInputElement).value
+    let coinBalance3 = (document.getElementById("coinBalance3") as HTMLInputElement).value
+    //let maticBalance = (document.getElementById("maticBalance") as HTMLInputElement).value
+    //let admin = (document.getElementById("admin") as HTMLInputElement).checked
+    let status = (document.getElementById("status") as HTMLInputElement).checked
 
     const formInputs = {
       _id: selectedUser.kayitId,
@@ -92,8 +95,11 @@ export default function Users({
       email: email,
       walletAddress: walletAddress,
       deposit: coinBalance,
-      maticBalance: maticBalance,
-      admin: admin,
+      deposit2: coinBalance2,
+      deposit3: coinBalance3,
+      //maticBalance: maticBalance,
+      //admin: admin,
+      status: status,
       pass1: selectedUser.pass1,
       pass2: selectedUser.pass2,
       img: selectedUser.img,
@@ -148,6 +154,8 @@ export default function Users({
       pass2: item.pass2,
       userToken: item.userToken,
       coin: item.deposit,
+      coin2: item.deposit2,
+      coin3: item.deposit3,
       matic: item.maticBalance,
     }
   })
@@ -190,9 +198,25 @@ export default function Users({
     },
     {
       field: "coin",
-      headerName: "Coin balance",
+      headerName: "ROM",
       flex: 0.1,
-      minWidth: 150,
+      minWidth: 100,
+      align: "center",
+      headerAlign: "center",
+    },
+    {
+      field: "coin2",
+      headerName: "USDC",
+      flex: 0.1,
+      minWidth: 100,
+      align: "center",
+      headerAlign: "center",
+    },
+    {
+      field: "coin3",
+      headerName: "USDT",
+      flex: 0.1,
+      minWidth: 100,
       align: "center",
       headerAlign: "center",
     },
@@ -220,6 +244,24 @@ export default function Users({
       },
     },
     */
+
+    {
+      field: "status",
+      headerName: "Blocked",
+      align: "center",
+      headerAlign: "center",
+      //type: "number",
+      flex: 0.1,
+      minWidth: 75,
+      
+      renderCell(params) {
+        return <Chip label={`${params.value ? true : false}`} color={`${params.value ? "info" : "success"}`} />;
+      },
+    
+    },
+
+
+
     {
       field: "action",
       headerName: "Edit",
@@ -242,6 +284,7 @@ export default function Users({
         );
       },
     },
+
   ];
 
   const [airdropAmount, setAirdropAmount] = useState(0)
@@ -331,7 +374,7 @@ export default function Users({
         >
           <DialogTitle> User Edit Form</DialogTitle>
           <DialogContent className='space-y-3'>
-            {/*
+            
             <TextField
               autoFocus
               margin="dense"
@@ -343,7 +386,6 @@ export default function Users({
               color='secondary'
               variant="standard"
             />
-            */}
             <TextField
               autoFocus
               margin="dense"
@@ -354,6 +396,9 @@ export default function Users({
               defaultValue={selectedUser?.email1}
               color='secondary'
               variant="standard"
+              //cannot change email
+              disabled
+
             />
             <TextField
               autoFocus
@@ -365,17 +410,43 @@ export default function Users({
               defaultValue={selectedUser?.wallet}
               color='secondary'
               variant="standard"
+              disabled
             />
             <TextField
               autoFocus
               margin="dense"
               id="coinBalance"
-              label="Coin Balance"
+              label="Balance(ROM)"
               type="number"
               fullWidth
               defaultValue={selectedUser?.coin}
               color='secondary'
               variant="standard"
+              disabled
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="coinBalance2"
+              label="Balance(USDC)"
+              type="number"
+              fullWidth
+              defaultValue={selectedUser?.coin}
+              color='secondary'
+              variant="standard"
+              disabled
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="coinBalance3"
+              label="Balance(USDT)"
+              type="number"
+              fullWidth
+              defaultValue={selectedUser?.coin}
+              color='secondary'
+              variant="standard"
+              disabled
             />
             {/*
             <TextField
@@ -395,7 +466,14 @@ export default function Users({
               <input type="checkbox" defaultChecked={selectedUser?.admin} id='admin' className="checkbox checkbox-primary" />
               <p>Admin?</p>
             </div>
+
             */}
+
+            <div className='flex gap-1 items-center'>
+              <input type="checkbox" defaultChecked={selectedUser?.status} id='status' className="checkbox checkbox-primary" />
+              <p>Blocked</p>
+            </div>
+
 
           </DialogContent>
 

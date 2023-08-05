@@ -6,6 +6,8 @@ export interface IUser {
   pass1: string | boolean;
   pass2: string;
   deposit: number;
+  deposit2: number;
+  deposit3: number;
   img: string;
   admin: boolean;
   newPassToken: string;
