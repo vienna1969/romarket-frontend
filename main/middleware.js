@@ -23,6 +23,7 @@ export async function middleware(request) {
     return NextResponse.redirect(new URL("/", url));
   }
 
+  /*
   if (!hasVerifiedToken) {
     const searchParams = new URLSearchParams(nextUrl.searchParams);
     searchParams.set("next", nextUrl.pathname);
@@ -31,6 +32,7 @@ export async function middleware(request) {
 
     return NextResponse.redirect(new URL("/login", url));
   }
+  */
 
   return NextResponse.next();
 }
