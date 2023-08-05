@@ -7,9 +7,13 @@ import { GetServerSidePropsContext } from 'next';
 import Link from 'next/link';
 import React, { useState } from 'react'
 import DashboardIcon from "@mui/icons-material/Dashboard";
+
 import { GridColDef, DataGrid, GridRowsProp } from '@mui/x-data-grid';
+
 import EditIcon from '@mui/icons-material/Edit';
+
 import { TransitionProps } from '@mui/material/transitions';
+
 import { getCookie } from 'cookies-next';
 import { toast } from "react-toastify";
 
@@ -221,6 +225,9 @@ export default function WithdrawRequestPage(
                     </div>
                     {/* Breadcrumb End Here */}
 
+                    
+                    
+                    
                     <div className="bg-gray-900 w-full h-full p-3 flex flex-row gap-2 relative">
                         <div style={{ width: "100%", height: 600, color: "white" }}>
                             <DataGrid
@@ -333,6 +340,9 @@ export default function WithdrawRequestPage(
                             </Dialog>
                         )}
                     </div>
+
+
+
                 </div>
             </div>
 
@@ -356,6 +366,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     const requestResponse = await fetch(`${process.env.API_URL}/api/withdrawRequest?method=all&userToken=${token}`)
     const requests = await requestResponse.json()
+    
     return {
         props: {
             //user: user,
