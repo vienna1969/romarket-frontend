@@ -78,13 +78,17 @@ export default function Navbar({ user, settings, getBalance }: { user: IUser | n
     <>
       {/* //? LG Screen üstü görüntü */}
       <header className="hidden lg:flex items-center justify-center w-full h-20 bg-[#24252F] sticky top-0 z-50 ">
+        
         <div className="flex flex-col gap-3 items-center justify-center w-[250px] absolute top-0 bg-[#24252F] rounded-lg h-full z-50  ">
           <Link href={"/"} className="hover:opacity-50">
             <Image src={"/logo/logo.png"} alt="crypto game place" width={30} height={20} />
           </Link>
           <div className=" font-normal text-xs text-gray-200 tracking-widest">{settings?.settings.general.logoText}</div>
         </div>
+
         <div className="flex flex-col items-center justify-center w-full h-full">
+
+
           <div className="flex w-full bg-[#16181F] text-[11px] h-[30px] relative ">
             <div className="marquee-container relative w-full">
               <div className="marquee ">
@@ -99,6 +103,7 @@ export default function Navbar({ user, settings, getBalance }: { user: IUser | n
               </div>
             </div>
           </div>
+
           <nav className="flex items-center justify-center w-full h-[50px] bg-[#24252F] px-3 ">
             <div className="flex items-center w-full gap-7 text-[#9293A6] fill-[#9293A6] uppercase ">
               
@@ -112,9 +117,10 @@ export default function Navbar({ user, settings, getBalance }: { user: IUser | n
               */}
 
             </div>
+
             <div className="flex items-center w-full justify-end gap-4">
 
-
+     {/*
             {address && (
                 <div
                 className={`flex items-center justify-center  bg-black rounded-md h-[36px] text-center px-5 text-[#BA8E09] border border-[#BA8E09] `}
@@ -124,7 +130,7 @@ export default function Navbar({ user, settings, getBalance }: { user: IUser | n
                 </div>
             )}
 
-              {/*
+         
 
               {user && <div
                 className={`flex items-center justify-center  bg-black rounded-md h-[36px] text-center px-5 text-[#BA8E09] border border-[#BA8E09] `}
@@ -184,7 +190,7 @@ export default function Navbar({ user, settings, getBalance }: { user: IUser | n
                   {user?.username}
                 </Link>
               }
-              */}
+        
 
 
               {address && <Link
@@ -192,7 +198,7 @@ export default function Navbar({ user, settings, getBalance }: { user: IUser | n
                   className={`flex items-center justify-center rounded-md p-1 gap-2  h-[36px] px-2 text-[#D4D1CB] text-[13px]`}
                 >
 
-{/*
+
                   <div className="flex flex-col items-center justify-center w-[25px] h-[25px]">
 
                     {user && <Image
@@ -209,12 +215,12 @@ export default function Navbar({ user, settings, getBalance }: { user: IUser | n
 
                   </div>
                   {user?.username}
-*/}
+
                   Profile
                 </Link>
               }
 
-
+*/}
 
               {/*
               {
@@ -230,19 +236,22 @@ export default function Navbar({ user, settings, getBalance }: { user: IUser | n
               }
             */}
 
+      {/*
             {!address ? (
               <div className='flex items-center justify-center bg-[#BABE09] rounded-md text-center text-[#BA8E09] border border-[#BA8E09] '>
                 <ConnectWallet theme='light' />
               </div>
             ) : (
               <>
-              {/*
+        
               <div className='flex items-center justify-center bg-[#BABE09] rounded-md text-center text-[#BA8E09] border border-[#BA8E09] '>
                 <button onClick={disconnect}>Disconnect</button>;
               </div>
-              */}
+       
               </>
             )}
+
+                   */}
 
 
 

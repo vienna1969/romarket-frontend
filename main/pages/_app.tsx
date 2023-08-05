@@ -44,6 +44,7 @@ export default function App({ Component, pageProps }: any) {
           <ThirdwebProvider
             activeChain={Polygon}
             supportedWallets={[
+              
               walletConnect(),
 
               metamaskWallet(),

@@ -10,15 +10,18 @@ import Link from "next/link";
 import { BsBodyText } from "react-icons/bs";
 
 export default function AdminSidebar() {
+
   return (
     <div className="sidebar fixed top-0 bottom-0  p-2 w-[80px] lg:w-[350px]  overflow-y-auto text-center bg-gray-900">
+      
       <div className="text-gray-100 text-xl">
         <div className="p-2.5 mt-1  items-center justify-center lg:flex hidden">
-          <Image src="/logo/logo.png" width="80" height="80" alt="logo" />
+          <Image src="/logo/logo.png" width="35" height="35" alt="logo" />
           <i className="bi bi-x cursor-pointer ml-28 lg:hidden"></i>
         </div>
         <div className="my-2 bg-gray-600 h-[1px]"></div>
       </div>
+
       <Link
         href={"/admin"}
         className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"

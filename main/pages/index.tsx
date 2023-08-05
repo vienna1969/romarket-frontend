@@ -14,8 +14,6 @@ import { deleteCookie, getCookie, hasCookie } from 'cookies-next';
 export default function Home({ user, settings }: { user: IUser | null, settings: ISettings | any }) {
 
 
-  console.log("user", user);
-
 
   return (
     <>

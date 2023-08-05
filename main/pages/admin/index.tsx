@@ -1,3 +1,4 @@
+import Layout from '@/components/layout/Layout';
 import Sidebar from "@/components/layout/admin/Sidebar";
 import { ISettings } from "@/utils/interfaces/settings-interface";
 import { IUser } from "@/utils/interfaces/user-interface";
@@ -32,6 +33,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
   }
 }
+
 
 export default function Admin({
   user,
@@ -111,14 +113,23 @@ export default function Admin({
   }
 
   return (
+
+    
     <div className="flex" >
-      <div className="w-[80px] lg:w-[453px] p-2"></div>
+
+      <div className="w-[80px] lg:w-[453px] p-2">
+
+      </div>
+
 
       <Sidebar />
+
       
       <div className="w-full p-10 gap-2 flex flex-col">
+
         {/* Breadcrumb Start Here */}
         <div className="bg-gray-900 p-3 rounded-md">
+
           <Breadcrumbs aria-label="breadcrumb">
 
             <Link className="flex justify-center" underline="hover" color="inherit" href="/admin">
@@ -127,6 +138,7 @@ export default function Admin({
             </Link>
             <Typography color="text.primary">Home</Typography>
           </Breadcrumbs>
+
         </div>
         {/* Breadcrumb End Here */}
 
@@ -196,5 +208,10 @@ export default function Admin({
 
       </div>
     </div >
+
+
   );
+
+
+
 }

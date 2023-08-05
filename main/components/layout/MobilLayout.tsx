@@ -95,13 +95,13 @@ export default function MobileNavbar({ user, userBalance, coinSymbol }: { user: 
                         */}
 
 
-
+       {/*
                         {address && <Link
                             href={"/profile"}
                             className={`flex items-center shadow-sm  justify-center rounded-md p-1 gap-2  h-[36px] px-2 text-[#D4D1CB] text-[13px]`}
                         >
                             <div className="flex gap-1">
-                                {/*
+                         
                                 {user && <Image
                                     src={user.img}
                                     width={20}
@@ -110,17 +110,16 @@ export default function MobileNavbar({ user, userBalance, coinSymbol }: { user: 
                                     className="rounded-full"
                                 />}
                                 {user?.username}
-                                */}
+                          
                                 Profile
                             </div>
                         </Link>
                         }
 
+                    */}
 
-
-                    {/*
-                        {
-                            user && <button
+{/*
+                            {user && <button
                                 className={`text-red-500`}
                                 onClick={() => {
                                     deleteCookie('token'),
@@ -129,22 +128,24 @@ export default function MobileNavbar({ user, userBalance, coinSymbol }: { user: 
                             >
                                 <CiLogin className='w-6 h-10' />
                             </button>
-                        }
-                        */}
-
+                            }
+                            */}
+                       
+    {/*
                         {!address ? (
                             <div className='flex items-center justify-center bg-[#BABE09] rounded-md text-center text-[#BA8E09] border border-[#BA8E09] '>
                                 <ConnectWallet theme='light' />
                             </div>
                         ) : (
                             <>
-                            {/*
+                        
                             <div className='flex items-center justify-center bg-[#BABE09] rounded-md text-center text-[#BA8E09] border border-[#BA8E09] '>
                                 <button onClick={disconnect}>Disconnect</button>;
                             </div>
-                            */}
+                       
                             </>
                         )}
+                             */}
 
                     </div>
 
