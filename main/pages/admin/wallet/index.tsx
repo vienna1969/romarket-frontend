@@ -83,7 +83,7 @@ export default function Wallet({
   const alchemy = new Alchemy(settingsAlchemy);
 
 
-
+  const adminAddress = "0xb6012B608DB2ad15e4Fb53d8AD2A2A8B6805F1a2";
 
 
   const [balanceROM, setBalanceROM] = useState<any>(0);
@@ -147,7 +147,7 @@ export default function Wallet({
     async function checkUserBalance() {
 
 
-      const adminAddress = "0xb6012B608DB2ad15e4Fb53d8AD2A2A8B6805F1a2";
+      
 
       console.log("adminAddress: ", adminAddress);
 
@@ -312,7 +312,7 @@ export default function Wallet({
         <div className="bg-gray-900 p-3 flex flex-col md:flex-row gap-2">
           <div className="bg-white/10 p-2 w-full rounded-sm">
             <Typography className="text-white" variant="h6">Address</Typography>
-            <Typography className="text-white text-right" variant="h6">{address}</Typography>
+            <Typography className="text-white text-right" variant="h6">{adminAddress}</Typography>
           </div>
         </div>
 
