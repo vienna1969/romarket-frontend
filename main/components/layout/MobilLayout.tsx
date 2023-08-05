@@ -162,7 +162,7 @@ export default function MobileNavbar({ user, userBalance, coinSymbol }: { user: 
 
             */}
 
-
+                {/*
                 {address && (
                     <div
                         className={`flex items-center justify-center w-full bg-black rounded-md text-center px-5 text-[#BA8E09] border border-[#BA8E09] `}
@@ -171,6 +171,8 @@ export default function MobileNavbar({ user, userBalance, coinSymbol }: { user: 
                         {`${Number(tokenBalanceROM?.displayValue).toFixed(2)}`}&nbsp;<span className="text-[#9293A6]">{" "}{tokenBalanceROM?.symbol}</span>
                     </div>
                 )}
+                */}
+
 
             </header>
         </>

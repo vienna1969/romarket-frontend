@@ -109,6 +109,15 @@ export const getUser = async (_id: string) => {
   }
 };
 
+export const getUserByWalletAddress = async (walletAddress: string) => {
+  const user = await User.findOne({ walletAddress: walletAddress });
+  if (user) {
+    return { success: true, user };
+  } else {
+    return { success: false, message: "User not found" };
+  }
+};
+
 export const getAllUsers = async () => {
   const users: IUser[] = (await User.find({ status: true })) as IUser[];
   if (users) {

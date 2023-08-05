@@ -6,7 +6,15 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Wallet from "@/components/layout/wallet";
 import { GoogleAnalytics } from "nextjs-google-analytics";
 
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
+///import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
+
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from '@tanstack/react-query';
+
+
 
 import {
   ThirdwebProvider,
@@ -19,6 +27,8 @@ import {
 
 import { Polygon } from '@thirdweb-dev/chains';
 
+import { useState } from 'react';
+
 ///const activeChain = "polygon";
 
 const darkTheme = createTheme({
@@ -27,10 +37,17 @@ const darkTheme = createTheme({
   },
 });
 
+
+
 const queryClient = new QueryClient()
 
 
+
+
 export default function App({ Component, pageProps }: any) {
+
+
+  /////const [queryClient] = useState(() => new QueryClient());
 
   return (
     <>
@@ -38,56 +55,83 @@ export default function App({ Component, pageProps }: any) {
       {/*
       <Wallet>
   */}
-  
-      <QueryClientProvider client={queryClient}>
 
-          <ThirdwebProvider
-            activeChain={Polygon}
-            supportedWallets={[
-              
-              walletConnect(),
-
-              metamaskWallet(),
-
-              //paperWallet({
-              //  clientId: 'efa05253-e8b1-4adb-b978-996f8f2f409c',
-              //}),
-            ]}
-            sdkOptions={{
-              gasless: {
-                openzeppelin: {
-                  relayerUrl: process.env.NEXT_PUBLIC_OPENZEPPELIN_URL,
-                },
-              },
-
-              /*
-              gasless: {
-                biconomy: {
-                  apiKey: 'BlotrRJre.fe0d620c-d56f-4663-8e63-8cf5e6400dcd',
-                  apiId: 'fd500daa-7efb-4e68-b488-4b2f9f212ab6',
-                },
-              },
-              */
-            }}
+<QueryClientProvider
+            client={queryClient}
+            ////contextSharing={true}
           >
 
+
+
+
+        
+      <ThemeProvider theme={darkTheme}>
         
 
-          <ThemeProvider theme={darkTheme}>
-          <GoogleAnalytics trackPageViews />
+            <GoogleAnalytics trackPageViews />
             <CssBaseline />
+
+
+
+
+
+            <ThirdwebProvider
+          ///queryClient={queryClient}
+
+
+          clientId="604b185b2ad11338b99727a0b2db4192"
+          activeChain={Polygon}
+          supportedWallets={[
+            paperWallet({
+              //paperClientId: '0f8cb1f0-845f-4f71-b49d-d4a01abd5bf3',
+              //clientId: '0f8cb1f0-845f-4f71-b49d-d4a01abd5bf3'
+
+              //clientId: '0f8cb1f0-845f-4f71-b49d-d4a01abd5bf3',
+
+              paperClientId: '0f8cb1f0-845f-4f71-b49d-d4a01abd5bf3',
+
+            }),
+
+            //metamaskWallet(),
+          ]}
+
+          sdkOptions={{
+            gasless: {
+              openzeppelin: {
+                relayerUrl: process.env.NEXT_PUBLIC_OPENZEPPELIN_URL,
+              },
+            },
+
+            /*
+            gasless: {
+              biconomy: {
+                apiKey: 'BlotrRJre.fe0d620c-d56f-4663-8e63-8cf5e6400dcd',
+                apiId: 'fd500daa-7efb-4e68-b488-4b2f9f212ab6',
+              },
+            },
+            */
+          }}
+        >
             <Component {...pageProps} />
-          </ThemeProvider>
+
+            </ThirdwebProvider>
+
+
           <ToastContainer />
-
-
-
       
-        {/*
-      </Wallet>
-      */}
+          {/*
+          </Wallet>
+          */}
 
-          </ThirdwebProvider>
+
+
+
+
+
+          
+      </ThemeProvider>
+          
+
 
       </QueryClientProvider>
 

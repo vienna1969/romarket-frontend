@@ -5,17 +5,141 @@ import { IUser } from '@/utils/interfaces/user-interface'
 import { GetServerSidePropsContext } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { use } from 'react'
 import { ISettings } from '@/utils/interfaces/settings-interface';
 
 import { deleteCookie, getCookie, hasCookie } from 'cookies-next';
 
 
-export default function Home({ user, settings }: { user: IUser | null, settings: ISettings | any }) {
+import {
+  ConnectWallet,
+  useDisconnect,
+  ThirdwebNftMedia,
+  useAddress,
+  useContract,
+  useContractRead,
+  useOwnedNFTs,
+  useTokenBalance,
+  Web3Button,
+  usePaperWalletUserEmail,
+} from '@thirdweb-dev/react';
 
+import { useEffect } from "react";
+
+
+
+
+
+export default function Home(
+  {
+    //user,
+    settings,
+  }:
+  {
+    //user: IUser | null,
+    settings: ISettings | any,
+  }
+) {
+
+  const address = useAddress();
+  const disconnect = useDisconnect();
+  
+  //const emailQuery = usePaperWalletUserEmail();
+
+  const [user, setUser] = React.useState<IUser | null>(null);
+
+
+  useEffect(() => {
+
+    async function checkUser() {
+        
+      if (address) {
+
+        console.log("address: ", address);
+
+        const formInputs = {
+          walletAddress: address,
+        };
+
+        const res = await fetch("/api/user?method=getOneByWalletAddress", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formInputs),
+        });
+        const data = await res.json();
+
+        console.log("data: ", data);
+
+        if (data.status) {
+
+          setUser(data.user);
+          
+        } else {
+
+
+        }
+      
+      }
+    }
+
+    checkUser();
+
+  }, [address]);
+
+
+  /*
+  useEffect(() => {
+
+      async function checkUser() {
+
+        if (address && emailQuery.data) {
+
+          console.log("address: ", address);
+          console.log("emailQuery: ", emailQuery);
+    
+          const email = emailQuery.data;
+          const username = email.split("@")[0];
+    
+          const password = "12345678";
+
+          const formInputs = {
+            username: username,
+            email: email,
+            pass1: password,
+            pass2: password,
+
+            walletAddress: address,
+            
+            //bonus: settings?.welcomeBonus ?? 0
+            bonus: 0,
+          };
+
+          const res = await fetch("/api/user?method=create", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(formInputs),
+          });
+          const data = await res.json();
+
+          console.log("data: ", data);
+
+          if (data.status) {
+            console.log("data: ", data);
+          } else {
+
+          }
+        }
+      }
+
+      checkUser();
+
+  }, [address, emailQuery]);
+  */
 
 
   return (
+
+    
     <>
       <Layout user={user} settings={settings}>
 
@@ -52,7 +176,8 @@ export default function Home({ user, settings }: { user: IUser | null, settings:
                   <h2 className='font-bold'>{settings?.settings?.general.siteName ?? "Welcome"}</h2>
                   <p className='text-sm italic my-5'>{settings?.settings?.general.siteDescription ?? "for the future"}</p>
 
-                  {user ?
+                  
+                  {address ?
                     <div className='flex flex-col gap-2'>
 
                       {user?.admin &&                      
@@ -60,11 +185,15 @@ export default function Home({ user, settings }: { user: IUser | null, settings:
                           Go to Dashboard
                         </Link>
                       }
+
                       <div className='flex flex-row w-full gap-5 items-center justify-center'>
 
-                        <div className='flex w-full text-xl font-bold items-center justify-center'>
-                          {/*user?.admin ? 'Admin: ' : 'User: '*/}
-                          {user?.username}
+                        <div className='flex flex-col w-full text-xl font-bold items-center justify-center'>
+
+                          <div>
+                            {user?.email}
+                          </div>
+                          <div>
 
                           {user?.admin == false && 
                             <>
@@ -73,34 +202,24 @@ export default function Home({ user, settings }: { user: IUser | null, settings:
                                 </p>
                             </>
                           }
+                          </div>
                         </div>
 
-                        <Link className='flex w-full emerald-btn p-2 px-4 duration-300 transition-all items-center justify-center'
-                          href={'/logout'}
-                          /*
-                          onClick={() => {
-
-                              //deleteCookie('user');
-                              //router.push('/logout');
-                       
-
-                            window.location.reload();
-                          }}
-                          */
-                        >
-                          Logout
-                        </Link>
+                        <button className=' emerald-btn p-2 px-4 duration-300 transition-all items-center justify-center'
+                          onClick={disconnect}>
+                          Disconnect
+                        </button>
 
                       </div>
                     </div>
                     :
-                    <Link
-                        className="p-2 px-4 rounded-md gold-btn text-gray-900 text-xs duration-300 transition-all "
-                        href={"/login"}
-                    >
-                        Go to login
-                    </Link>
+                    <ConnectWallet
+                      className="p-2 px-4 rounded-md gold-btn text-gray-900 text-xs duration-300 transition-all "
+                      //theme='light'
+                    />
                   }
+
+                  
 
                 </div>
                 {/*
@@ -130,15 +249,23 @@ export default function Home({ user, settings }: { user: IUser | null, settings:
 
       </Layout >
     </>
+
   )
+
+
 }
 
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const { user, settings }: any = await myGetServerSideProps(context)
+
+  const {
+    //user,
+    settings,
+  }: any = await myGetServerSideProps(context)
+
   return {
     props: {
-      user: user ?? null,
+      //user: user ?? null,
       settings: settings ?? null
     }
   }

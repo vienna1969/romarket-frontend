@@ -9,14 +9,39 @@ import { GetServerSidePropsContext } from "next/types";
 import { useState } from "react";
 import { myGetServerSideProps } from "@/helpers";
 
+import React, { use } from 'react'
+
+import {
+  ConnectWallet,
+  useDisconnect,
+  ThirdwebNftMedia,
+  useAddress,
+  useContract,
+  useContractRead,
+  useOwnedNFTs,
+  useTokenBalance,
+  Web3Button,
+  usePaperWalletUserEmail,
+} from '@thirdweb-dev/react';
+
+import { useEffect } from "react";
+import { Router } from 'lucide-react';
+
+
+
+
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
 
+  
   const { user, settings }: any = await myGetServerSideProps(context)
 
+  /*
   if (!user.admin) {
     return { redirect: { destination: '/', permanent: false } }
   }
+  */
+
   const usersResponse = await fetch(process.env.API_URL + '/api/user?method=getUserCount')
   const users = await usersResponse.json()
 
@@ -25,18 +50,17 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   return {
     props: {
-      user: user,
+      //user: user,
       settings: settings ?? null,
-      ////usersCount: users.count
+      usersCount: users.count
 
-      usersCount: 0
     }
   }
 }
 
 
 export default function Admin({
-  user,
+  //user,
   settings,
   usersCount
 }: {
@@ -46,12 +70,62 @@ export default function Admin({
 }) {
 
 
+
   const [withdrawType, setWithdrawType] = useState(settings?.requestType);
   
   const [chat, setChat] = useState(settings?.chat);
 
   const [demo, setDemo] = useState(process.env.NEXT_PUBLIC_DEMO == "true" ? true : false);
   const [games, setGames] = useState<any>(settings?.games);
+
+
+
+  const address = useAddress();
+  const disconnect = useDisconnect();
+  
+  //const emailQuery = usePaperWalletUserEmail();
+
+  const [user, setUser] = React.useState<IUser | null>(null);
+
+
+  useEffect(() => {
+
+    async function checkUser() {
+        
+      if (address) {
+
+        console.log("address: ", address);
+
+        const formInputs = {
+          walletAddress: address,
+        };
+
+        const res = await fetch("/api/user?method=getOneByWalletAddress", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formInputs),
+        });
+        const data = await res.json();
+
+        console.log("data: ", data);
+
+        if (data.status) {
+
+          setUser(data.user);
+          
+        } else {
+
+
+        }
+      
+      }
+    }
+
+    checkUser();
+
+  }, [address]);
+
+
 
   const changeWithdrawType = async () => {
     const res = await fetch('/api/settings', {
@@ -112,7 +186,31 @@ export default function Admin({
     }
   }
 
+
+  // if not admin redirect to home page
+/*
+  if (!user?.admin) {
+    return { redirect: { destination: '/', permanent: false } }
+  }
+  */
+ 
+
+
   return (
+
+    // if not admin redirect to home page
+    (!user?.admin ? <div>Not Authorized</div>
+    
+    :
+
+    <>
+    
+
+    
+    
+    
+
+
 
     
     <div className="flex" >
@@ -209,6 +307,10 @@ export default function Admin({
       </div>
     </div >
 
+
+    </>
+    )
+    
 
   );
 

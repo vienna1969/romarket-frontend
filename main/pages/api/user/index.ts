@@ -1,8 +1,10 @@
 import { getJwtSecretKey } from "@/utils/auth";
+
 import {
   newUser,
   loginUser,
   getUser,
+  getUserByWalletAddress,
   getAllUsers,
   updateUser,
   deleteUser,
@@ -11,6 +13,7 @@ import {
   changePassword,
   userCount,
 } from "@/utils/models/user-model";
+
 import { authFromServer } from "@/utils/services/useAuth";
 import { SignJWT } from "jose";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -64,6 +67,7 @@ export default async function handler(
     res.status(400).json({ status: false, message: "Something went wrong" });
   }
 
+
   if (method === "login") {
     const { email, pass } = req.body;
     if (!email || !pass) {
@@ -98,6 +102,8 @@ export default async function handler(
       .json({ status: false, message: "Something went wrong" });
   }
 
+
+
   if (method === "getOne") {
     const { _id } = req.body;
     const user = await getUser(_id);
@@ -109,6 +115,21 @@ export default async function handler(
       .status(200)
       .json({ status: true, message: "User found", user: user.user });
   }
+
+
+  if (method === "getOneByWalletAddress") {
+    const { walletAddress } = req.body;
+    const user = await getUserByWalletAddress(walletAddress);
+    if (!user.success) {
+      res.status(400).json({ status: false, message: user.message });
+      return;
+    }
+    res
+      .status(200)
+      .json({ status: true, message: "User found", user: user.user });
+  }
+
+
 
   if (method === "getAll") {
     const users = await getAllUsers();
