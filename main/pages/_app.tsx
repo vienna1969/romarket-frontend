@@ -92,7 +92,8 @@ export default function App({ Component, pageProps }: any) {
 
             }),
 
-            //metamaskWallet(),
+            metamaskWallet(),
+            walletConnect(),
           ]}
 
           sdkOptions={{
