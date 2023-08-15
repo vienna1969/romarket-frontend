@@ -87,7 +87,9 @@ export default function Users({
     let coinBalance3 = (document.getElementById("coinBalance3") as HTMLInputElement).value
     //let maticBalance = (document.getElementById("maticBalance") as HTMLInputElement).value
     //let admin = (document.getElementById("admin") as HTMLInputElement).checked
+
     let status = (document.getElementById("status") as HTMLInputElement).checked
+    
 
     const formInputs = {
       _id: selectedUser.kayitId,

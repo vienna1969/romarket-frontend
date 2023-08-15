@@ -119,7 +119,11 @@ export const getUserByWalletAddress = async (walletAddress: string) => {
 };
 
 export const getAllUsers = async () => {
-  const users: IUser[] = (await User.find({ status: true })) as IUser[];
+  
+  //const users: IUser[] = (await User.find({ status: true })) as IUser[];
+
+  const users: IUser[] = (await User.find({ })) as IUser[];
+
   if (users) {
     return { success: true, users };
   } else {
@@ -150,8 +154,12 @@ export const updateUser = async (
   admin: boolean,
   newPassToken: string,
   maticBalance: number,
-  walletAddress: string
+  walletAddress: string,
+  status: boolean,
 ) => {
+
+  console.log ("updateUser status", status);
+
   const updatedUser: IUser = (await User.findOneAndUpdate(
     { _id: _id },
     {
@@ -164,9 +172,11 @@ export const updateUser = async (
       newPassToken: newPassToken,
       maticBalance: maticBalance,
       walletAddress: walletAddress,
+      status: status,
     },
     { new: true }
   )) as IUser;
+
   if (updatedUser) {
     return { success: true, updatedUser };
   }

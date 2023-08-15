@@ -154,6 +154,7 @@ export default async function handler(
       newPassToken,
       maticBalance,
       walletAddress,
+      status,
     } = req.body;
     const user = await updateUser(
       _id,
@@ -165,7 +166,8 @@ export default async function handler(
       admin,
       newPassToken,
       maticBalance,
-      walletAddress
+      walletAddress,
+      status,
     );
     if (!user.success) {
       res.status(400).json({ status: false, message: user.message });
