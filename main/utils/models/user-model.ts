@@ -320,6 +320,6 @@ export const changeUserImage = async (_id: string, filepath: string) => {
 };
 
 export const userCount = async () => {
-  const count = await User.countDocuments({ status: true });
+  const count = await User.countDocuments({ });
   return count;
 };
