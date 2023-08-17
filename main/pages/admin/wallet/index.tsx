@@ -20,6 +20,13 @@ import { TransitionProps } from '@mui/material/transitions';
 import { getCookie } from 'cookies-next';
 import { toast } from "react-toastify";
 
+import {
+  tokenContractAddressBUSD,
+  tokenContractAddressROM,
+  tokenContractAddressUSDC,
+  tokenContractAddressUSDT
+} from '@/config/contractAddresses';
+
 
 import {
   ConnectWallet,
@@ -125,12 +132,13 @@ export default function Wallet({
 
       if (adminAddress) {
 
-        //ROM token contract address
         const tokenContractAddresses = [
-          "0x886b480c34BF4a0DeF1B2d0B8a0B3a88DDBF3A73", // ROM
-          "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174", // USDC
-          "0xc2132D05D31c914a87C6611C10748AEb04B58e8F", // USDT
+          tokenContractAddressROM,
+          tokenContractAddressUSDC,
+          tokenContractAddressUSDT,
+          tokenContractAddressBUSD,
         ];
+
 
         const data = await alchemy.core.getTokenBalances(
           adminAddress,

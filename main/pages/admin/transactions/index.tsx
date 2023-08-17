@@ -15,10 +15,13 @@ import React, { use } from 'react'
 
 import { GridColDef, DataGrid, GridRowsProp } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
+import ViewIcon from '@mui/icons-material/Visibility';
 import { TransitionProps } from '@mui/material/transitions';
 
 import { getCookie } from 'cookies-next';
 import { toast } from "react-toastify";
+
+import { ethers } from 'ethers';
 
 
 import {
@@ -35,10 +38,17 @@ import {
 } from '@thirdweb-dev/react';
 
 import { useEffect } from "react";
-import { Router } from 'lucide-react';
+import { Router, View } from 'lucide-react';
 
 
 import { Network, Alchemy } from 'alchemy-sdk';
+
+import {
+    tokenContractAddressBUSD,
+    tokenContractAddressROM,
+    tokenContractAddressUSDC,
+    tokenContractAddressUSDT
+} from '@/config/contractAddresses';
 
 
 
@@ -84,6 +94,7 @@ export default function Transactions({
   const [balanceROM, setBalanceROM] = useState<any>(0);
   const [balanceUSDC, setBalanceUSDC] = useState<any>(0);
   const [balanceUSDT, setBalanceUSDT] = useState<any>(0);
+  const [balanceBUSD, setBalanceBUSD] = useState<any>(0);
 
 
 
@@ -102,6 +113,8 @@ export default function Transactions({
   //const emailQuery = usePaperWalletUserEmail();
 
   const [user, setUser] = React.useState<IUser | null>(null);
+
+  const [transactions, setTransactions] = React.useState([]);
 
 
   useEffect(() => {
@@ -140,9 +153,10 @@ export default function Transactions({
 
         //ROM token contract address
         const tokenContractAddresses = [
-          "0x886b480c34BF4a0DeF1B2d0B8a0B3a88DDBF3A73", // ROM
-          "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174", // USDC
-          "0xc2132D05D31c914a87C6611C10748AEb04B58e8F", // USDT
+          tokenContractAddressROM,
+          tokenContractAddressUSDC,
+          tokenContractAddressUSDT,
+          tokenContractAddressBUSD,
         ];
 
         const data = await alchemy.core.getTokenBalances(
@@ -156,22 +170,112 @@ export default function Transactions({
         const balanceROM = data.tokenBalances[0].tokenBalance;
         const balanceUSDC = data.tokenBalances[1].tokenBalance;
         const balanceUSDT = data.tokenBalances[2].tokenBalance;
+        const balanceBUSD = data.tokenBalances[3].tokenBalance;
 
         const numDecimals = 18;
 
         setBalanceROM( (parseInt(balanceROM ?? "0") / 10 ** numDecimals).toFixed(2) );
         setBalanceUSDC( (parseInt(balanceUSDC ?? "0") / 10 ** numDecimals).toFixed(2) );
         setBalanceUSDT( (parseInt(balanceUSDT ?? "0") / 10 ** 6).toFixed(2) );
+        setBalanceBUSD( (parseInt(balanceUSDT ?? "0") / 10 ** 6).toFixed(2) );
 
       }
 
     }
 
-    checkUser();
+    //checkUser();
 
-    checkUserBalance();
+    //checkUserBalance();
 
   }, [address]);
+
+
+  const pageKey = '1';
+  const pageSize = '50';
+
+
+
+
+  const getTransactions = async () => {
+
+    if (address) {
+      // post to api to get transactions
+      const formInputs = {
+        pageKey: pageKey,
+        pageSize: pageSize,
+        contract: tokenContractAddressROM,
+        address: address,
+      };
+
+      const res = await fetch('/api/ft/transactions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formInputs),
+      });
+
+      const data = await res.json();
+
+      const transactions = [] as any;
+
+      data.data.transactions?.map((transaction: any) => {
+        const transactionData = {
+          _id: transaction._id,
+
+          //transactionType:
+          //  transaction.from === address.toLowerCase() ? 'Send' : 'Receive',
+          //transactionType: "Send",
+
+          createdAt: transaction.block_signed_at,
+
+          //address:
+          //  transaction.from === address.toLowerCase()
+          //    ? transaction.to
+          //    : transaction.from,
+
+          from: transaction.from,
+          to: transaction.to,
+
+          contract: transaction.contract,
+
+          /*
+          amount: {
+            ///balance: transaction.value,
+            //balance: Math.round(parseFloat(transaction.value) * (10 ** 18)),
+            balance: ethers.utils.formatEther(transaction.value),
+
+            usdBalance: '11,032.24',
+          },
+          */
+
+          amount : ethers.utils.formatEther(transaction.value),
+
+          status: 'Completed',
+
+          tx_hash: transaction.tx_hash,
+        };
+
+        transactions.push(transactionData);
+      });
+
+      console.log('transactions: ', transactions);
+
+      setTransactions(transactions);
+    }
+
+  };
+
+  
+  useEffect(() => {
+
+    getTransactions();
+
+    setTimeout(() => {
+      getTransactions();
+    }, 10000);
+
+  }, [address]);
+  
+
 
 
 
@@ -180,6 +284,7 @@ export default function Transactions({
   const [open, setOpen] = useState<boolean>(false);
   const [requests, setRequests] = useState<any>(withdrawRequests)
 
+  /*
   const rows: GridRowsProp = requests.map((request: any, i: number) => {
       return {
           id: i + 1,
@@ -196,6 +301,32 @@ export default function Transactions({
           createdAt: new Date(request.createdAt).toLocaleDateString(),
       };
   })
+  */
+
+  const rows: GridRowsProp = transactions.map((transaction: any, i: number) => {
+
+
+    console.log("transaction: ", transaction);
+
+
+    return {
+        id: i + 1,
+        _id: transaction._id,
+        userId: transaction.from,
+        email: transaction.from,
+        username: transaction.from,
+        withdrawAmount: transaction.amount,
+        withdrawType: "ROM",
+        walletTo: transaction.to,
+        status: transaction.status,
+        isPayed: true,
+        txHash: transaction.tx_hash,
+        createdAt: new Date(transaction.createdAt).toLocaleString(),
+    };
+})
+
+
+
 
   const columns: GridColDef[] = [
       {
@@ -208,17 +339,25 @@ export default function Transactions({
       },
       {
           field: "username",
-          headerName: "Username",
-          flex: 0.2,
+          headerName: "From",
+          flex: 0.1,
           minWidth: 150,
           align: "center",
           headerAlign: "center",
       },
       {
+        field: "walletTo",
+        headerName: "To",
+        flex: 0.1,
+        minWidth: 150,
+        align: "center",
+        headerAlign: "center",
+    },
+      {
           field: "withdrawAmount",
           headerName: "Amount",
           flex: 0.1,
-          minWidth: 150,
+          minWidth: 60,
           align: "center",
           headerAlign: "center",
       },
@@ -226,14 +365,14 @@ export default function Transactions({
           field: "withdrawType",
           headerName: "Type",
           flex: 0.1,
-          minWidth: 150,
+          minWidth: 40,
           align: "center",
           headerAlign: "center",
       },
       {
           field: "createdAt",
           headerName: "Date",
-          flex: 0.1,
+          flex: 0.2,
           minWidth: 150,
           align: "center",
           headerAlign: "center",
@@ -250,9 +389,10 @@ export default function Transactions({
               return <Chip label={`${params.value}`} color={`${params.value === 'Paid' ? "success" : params.value === "Rejected" ? "error" : "info"}`} />;
           },
       },
+      
       {
           field: "action",
-          headerName: "Edit",
+          headerName: "View",
           align: "center",
           headerAlign: "center",
           sortable: false,
@@ -266,12 +406,14 @@ export default function Transactions({
                               handleClickOpen();
                           }}
                       >
-                          <EditIcon />
+                         
+                          <ViewIcon />
                       </IconButton>
                   </div>
               );
           },
       },
+      
   ];
 
 
@@ -352,19 +494,18 @@ export default function Transactions({
   return (
 
     // if not admin redirect to home page
-    (!user?.admin ? <div>Not Authorized</div>
-    
+    //(!user?.admin ?
+    (false ?
+      <>
+        <div>Not Authorized</div>
+      </>
     :
 
     <>
     
 
     
-    
-    
-
-
-
+  
     
     <div className="flex" >
 
@@ -417,18 +558,12 @@ export default function Transactions({
                             >
                                 <DialogTitle>
                                     {" "}
-                                    Withdraw Request from {selectedRequest.username}
+                                    From {selectedRequest.username}
                                 </DialogTitle>
                                 <DialogContent className="space-y-3">
+
                                     <DialogContentText>
-                                        E-mail:{" "}
-                                        <span className="font-bold italic">
-                                            {" "}
-                                            {selectedRequest?.email}{" "}
-                                        </span>
-                                    </DialogContentText>
-                                    <DialogContentText>
-                                        Withdraw Request Amount:{" "}
+                                        Amount:{" "}
                                         <span className="font-bold italic">
                                             {" "}
                                             {selectedRequest?.withdrawAmount}{" "}
@@ -446,30 +581,21 @@ export default function Transactions({
                                         </span>
                                     </DialogContentText>
                                     <DialogContentText>
-                                        Wallet Address:{" "}
+                                        To:{" "}
                                         <span className="font-bold italic">
                                             {" "}
                                             {selectedRequest?.walletTo}{" "}
                                         </span>
                                     </DialogContentText>
                                     <DialogContentText>
-                                        Created At:{" "}
+                                        At:{" "}
                                         <span className="font-bold italic">
                                             {" "}
                                             {selectedRequest?.createdAt}{" "}
                                         </span>
                                     </DialogContentText>
-                                    <div className="flex gap-1 items-center">
-                                        <input
-                                            type="checkbox"
-                                            value={selectedRequest?.isPayed}
-                                            onChange={(e) => { setSelectedRequest({ ...selectedRequest, isPayed: e.target.checked }) }}
-                                            id="isPay"
-                                            className="checkbox checkbox-primary"
-                                        />
-                                        <p>Payment Send?</p>
-                                    </div>
                                     <TextField
+                                        disabled
                                         autoFocus
                                         id="hash"
                                         label="Transaction Hash"
@@ -482,11 +608,14 @@ export default function Transactions({
                                         className='m-0 p-0'
                                     />
                                 </DialogContent>
+                                {/*
                                 <DialogContentText className="text-center text-xs italic">
                                     If you reject the request than request amount will be refund to
                                     user!
                                 </DialogContentText>
+                                */}
                                 <DialogActions>
+                                  {/*
                                     <Button
                                         color="error"
                                         onClick={handleDelete}
@@ -499,13 +628,16 @@ export default function Transactions({
                                     >
                                         Reject
                                     </Button>
+                                    */}
                                     <Button onClick={handleClose}>Close</Button>
+                                    {/*
                                     <Button
                                         color="success"
                                         onClick={handleAccept}
                                     >
                                         Save
                                     </Button>
+                                    */}
                                 </DialogActions>
                             </Dialog>
                         )}
@@ -550,6 +682,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const requestResponse = await fetch(`${process.env.API_URL}/api/withdrawRequest?method=all&userToken=${token}`)
   const requests = await requestResponse.json()
+
+
+
 
   return {
     props: {

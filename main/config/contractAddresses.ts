@@ -64,9 +64,14 @@ export const marketplaceContractAddress =
 export const marketplaceContractAddressChaoscube =
   '0xcc68084a1976195168D6874915FD8932094a46a9'; // chaoscube
 
-// ROM Token (ROM)
+
+
+// Romarket Token (ROM)
 export const tokenContractAddressROM =
-  '0x886b480c34BF4a0DeF1B2d0B8a0B3a88DDBF3A73';
+  //'0xa2F07692b0CA7106de6F61964a489464a3Ebf3d3';
+  //'0x886b480c34BF4a0DeF1B2d0B8a0B3a88DDBF3A73'; // polygon
+  //'0x85e78cB85C216Db9E421c6ac137aA409A80FBCb1'; // bnb old
+  '0x0501aeB35866F4527CdB73CB0Fc2795FD568e0B1'; // bnb new
 
 // USDC Token (USDC)
 export const tokenContractAddressUSDC =
@@ -75,6 +80,9 @@ export const tokenContractAddressUSDC =
 // USDT Token (USDT)
 export const tokenContractAddressUSDT =
   '0xc2132D05D31c914a87C6611C10748AEb04B58e8F';
+
+export const tokenContractAddressBUSD =
+  '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56';
 
 // Race Ticket ERC-1155
 export const contractAddressRace = '0x5e52c17869F8fF63Eeb5f832Bfbf98465bc213bf';
