@@ -19,6 +19,13 @@ import { SignJWT } from "jose";
 import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 
+
+
+
+
+
+
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -132,11 +139,16 @@ export default async function handler(
 
 
   if (method === "getAll") {
+
     const users = await getAllUsers();
+
     if (!users.success) {
       res.status(400).json({ status: false, message: users.message });
       return;
     }
+
+
+
     res
       .status(200)
       .json({ status: true, message: "Users found", users: users.users });
@@ -155,6 +167,12 @@ export default async function handler(
       maticBalance,
       walletAddress,
       status,
+      lockAmount1,
+      lockDays1,
+      lockAmount2,
+      lockDays2,
+      lockAmount3,
+      lockDays3,
     } = req.body;
     const user = await updateUser(
       _id,
@@ -168,6 +186,12 @@ export default async function handler(
       maticBalance,
       walletAddress,
       status,
+      lockAmount1,
+      lockDays1,
+      lockAmount2,
+      lockDays2,
+      lockAmount3,
+      lockDays3,
     );
     if (!user.success) {
       res.status(400).json({ status: false, message: user.message });

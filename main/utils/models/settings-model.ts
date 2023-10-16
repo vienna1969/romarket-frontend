@@ -68,7 +68,8 @@ export const getSettings = async () => {
   
   const settings = await SettingModel.find();
 
-  console.log("getSettings", settings);
+  ////console.log("getSettings", settings);
+  
 
   return settings;
 };

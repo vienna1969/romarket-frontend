@@ -15,4 +15,10 @@ export interface IUser {
   maticBalance: number;
   walletAddress: string;
   status: boolean;
+  lockAmount1: number;
+  lockDays1: number;
+  lockAmount2: number;
+  lockDays2: number;
+  lockAmount3: number;
+  lockDays3: number;
 }

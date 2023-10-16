@@ -60,6 +60,40 @@ const UserSchema = new Schema({
     type: Boolean,
     default: true,
   },
+
+  lockAmount1: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+  lockDays1: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+  lockAmount2: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+  lockDays2: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+
+  lockAmount3: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+  lockDays3: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+
+
 });
 
 export const User = models.User || model("User", UserSchema);
@@ -125,6 +159,9 @@ export const getAllUsers = async () => {
   const users: IUser[] = (await User.find({ })) as IUser[];
 
   if (users) {
+
+    //console.log ("getAllUsers users", users);
+
     return { success: true, users };
   } else {
     return { success: false, message: "Users not found" };
@@ -156,9 +193,15 @@ export const updateUser = async (
   maticBalance: number,
   walletAddress: string,
   status: boolean,
+  lockAmount1: number,
+  lockDays1: number,
+  lockAmount2: number,
+  lockDays2: number,
+  lockAmount3: number,
+  lockDays3: number,
 ) => {
 
-  console.log ("updateUser status", status);
+  console.log ("updateUser lockAmount1", lockAmount1);
 
   const updatedUser: IUser = (await User.findOneAndUpdate(
     { _id: _id },
@@ -173,6 +216,12 @@ export const updateUser = async (
       maticBalance: maticBalance,
       walletAddress: walletAddress,
       status: status,
+      lockAmount1: lockAmount1,
+      lockDays1: lockDays1,
+      lockAmount2: lockAmount2,
+      lockDays2: lockDays2,
+      lockAmount3: lockAmount3,
+      lockDays3: lockDays3,
     },
     { new: true }
   )) as IUser;

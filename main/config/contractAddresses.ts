@@ -71,7 +71,8 @@ export const tokenContractAddressROM =
   //'0xa2F07692b0CA7106de6F61964a489464a3Ebf3d3';
   //'0x886b480c34BF4a0DeF1B2d0B8a0B3a88DDBF3A73'; // polygon
   //'0x85e78cB85C216Db9E421c6ac137aA409A80FBCb1'; // bnb old
-  '0x0501aeB35866F4527CdB73CB0Fc2795FD568e0B1'; // bnb new
+  //'0x0501aeB35866F4527CdB73CB0Fc2795FD568e0B1'; // bnb new
+  '0x24D66A70d8524d127a4Bc9276B284569D4ea8383'; // ethereum
 
 // USDC Token (USDC)
 export const tokenContractAddressUSDC =

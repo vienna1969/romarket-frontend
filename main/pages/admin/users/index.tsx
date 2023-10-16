@@ -6,12 +6,33 @@ import { Breadcrumbs, Button, Chip, Dialog, DialogActions, DialogContent, Dialog
 import { GridColDef, GridApi, DataGrid, GridRowsProp } from '@mui/x-data-grid';
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import { GetServerSidePropsContext } from "next/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import { TransitionProps } from "@mui/material/transitions";
 import React from "react";
 import { toast } from "react-toastify";
 import { myGetServerSideProps } from "@/helpers";
+
+
+import {
+  tokenContractAddressROM,
+} from '@/config/contractAddresses';
+
+import {
+  ThirdwebSDK,
+  ChainId,
+  NATIVE_TOKEN_ADDRESS,
+  TransactionResult,
+} from '@thirdweb-dev/sdk';
+
+// thirdweb sdk
+const readOnlySdk = new ThirdwebSDK(ChainId.Mainnet, {
+
+  clientId: process.env.THIRDWEB_CLIENT_ID,
+
+  //secretKey: process.env.THIRDWEB_SECRET_KEY,
+});
+
 
 
 
@@ -47,6 +68,9 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+
+
+
 export default function Users({
   user,
   settings,
@@ -58,11 +82,26 @@ export default function Users({
 }) {
 
 
+    ///console.log(users);
+
+
+    // thirdweb sdk get balance of erc20 token contract address tokenContractAddressROM
+
+    //const contract = await readOnlySdk.getContract(tokenContractAddressROM);
+
+    //const balance = await contract.erc20.balanceOf(users[0].walletAddress);
+
+
+
+
 
   const [open, setOpen] = useState(false);
+  
   const [selectedUser, setSelectedUser] = useState<any>();
+
   const [demo, setDemo] = useState(process.env.NEXT_PUBLIC_DEMO == "true" ? true : false);
 
+  const [selectedUserBalance, setSelectedUserBalance] = useState<any>();
 
   function duzenle(e: any) {
     setSelectedUser(e)
@@ -70,6 +109,10 @@ export default function Users({
   }
 
   const handleClickOpen = () => {
+
+    
+
+
     setOpen(true);
   };
 
@@ -83,12 +126,20 @@ export default function Users({
     let email = (document.getElementById("email") as HTMLInputElement).value
     let walletAddress = (document.getElementById("walletAddress") as HTMLInputElement).value
     let coinBalance = (document.getElementById("coinBalance") as HTMLInputElement).value
-    let coinBalance2 = (document.getElementById("coinBalance2") as HTMLInputElement).value
-    let coinBalance3 = (document.getElementById("coinBalance3") as HTMLInputElement).value
+    //let coinBalance2 = (document.getElementById("coinBalance2") as HTMLInputElement).value
+    //let coinBalance3 = (document.getElementById("coinBalance3") as HTMLInputElement).value
     //let maticBalance = (document.getElementById("maticBalance") as HTMLInputElement).value
     //let admin = (document.getElementById("admin") as HTMLInputElement).checked
 
     let status = (document.getElementById("status") as HTMLInputElement).checked
+
+    let lockAmount1 = (document.getElementById("lockAmount1") as HTMLInputElement).value
+    let lockDays1 = (document.getElementById("lockDays1") as HTMLInputElement).value
+    let lockAmount2 = (document.getElementById("lockAmount2") as HTMLInputElement).value
+    let lockDays2 = (document.getElementById("lockDays2") as HTMLInputElement).value
+    let lockAmount3 = (document.getElementById("lockAmount3") as HTMLInputElement).value
+    let lockDays3 = (document.getElementById("lockDays3") as HTMLInputElement).value
+
     
 
     const formInputs = {
@@ -97,14 +148,22 @@ export default function Users({
       email: email,
       walletAddress: walletAddress,
       deposit: coinBalance,
-      deposit2: coinBalance2,
-      deposit3: coinBalance3,
+      //deposit2: coinBalance2,
+      //deposit3: coinBalance3,
       //maticBalance: maticBalance,
       //admin: admin,
       status: status,
       pass1: selectedUser.pass1,
       pass2: selectedUser.pass2,
       img: selectedUser.img,
+
+      lockAmount1: lockAmount1,
+      lockDays1: lockDays1,
+      lockAmount2: lockAmount2,
+      lockDays2: lockDays2,
+      lockAmount3: lockAmount3,
+      lockDays3: lockDays3,
+
     }
     fetch('/api/user?method=update', {
       method: "POST",
@@ -161,6 +220,12 @@ export default function Users({
       coin2: item.deposit2,
       coin3: item.deposit3,
       matic: item.maticBalance,
+      lockAmount1: item.lockAmount1,
+      lockDays1: item.lockDays1,
+      lockAmount2: item.lockAmount2,
+      lockDays2: item.lockDays2,
+      lockAmount3: item.lockAmount3,
+      lockDays3: item.lockDays3,
     }
   })
 
@@ -200,6 +265,7 @@ export default function Users({
       align: "center",
       headerAlign: "center",
     },
+    /*
     {
       field: "coin",
       headerName: "ROM",
@@ -224,6 +290,7 @@ export default function Users({
       align: "center",
       headerAlign: "center",
     },
+    */
     /*
     {
       field: "matic",
@@ -277,9 +344,22 @@ export default function Users({
         return (
           <div className="flex justify-center">
             <IconButton
-              onClick={() => {
+              onClick={ async () => {
+
+                const walletAddress = params.row.wallet;
+
+                const contract = await readOnlySdk.getContract(tokenContractAddressROM);
+                const balance = await contract.erc20.balanceOf(walletAddress);
+                console.log(balance);
+
+                setSelectedUserBalance(balance);
+
+                console.log(params.row)
+              
                 setSelectedUser(params.row)
                 handleClickOpen();
+
+
               }}
             >
               <EditIcon />
@@ -313,6 +393,11 @@ export default function Users({
     })
 
   }
+
+
+ 
+
+
 
   return (
     <>
@@ -368,6 +453,8 @@ export default function Users({
           </div>
         </div>
       </div>
+
+
       {selectedUser && (
         <Dialog
           open={open}
@@ -417,17 +504,102 @@ export default function Users({
               disabled
             />
             <TextField
+
               autoFocus
               margin="dense"
               id="coinBalance"
               label="Balance(ROM)"
               type="number"
               fullWidth
-              defaultValue={selectedUser?.coin}
+              defaultValue={selectedUserBalance?.displayValue}
               color='secondary'
               variant="standard"
               disabled
             />
+
+
+
+            <div className="flex justify-center">
+              <span className="text-white w-72">Lock ROM 1</span>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="lockAmount1"
+                label="Locked(ROM)"
+                type="number"
+                fullWidth
+                defaultValue={selectedUser?.lockAmount1}
+                color='secondary'
+                variant="standard"
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                id="lockDays1"
+                label="Lock Time(Days)"
+                type="number"
+                fullWidth
+                defaultValue={selectedUser?.lockDays1}
+                color='secondary'
+                variant="standard"
+              />
+            </div>
+
+
+            <div className="flex justify-center">
+              <span className="text-white w-72">Lock ROM 2</span>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="lockAmount2"
+                label="Locked(ROM)"
+                type="number"
+                fullWidth
+                defaultValue={selectedUser?.lockAmount2}
+                color='secondary'
+                variant="standard"
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                id="lockDays2"
+                label="Lock Time(Days)"
+                type="number"
+                fullWidth
+                defaultValue={selectedUser?.lockDays2}
+                color='secondary'
+                variant="standard"
+              />
+            </div>
+
+            <div className="flex justify-center">
+              <span className="text-white w-72">Lock ROM 3</span>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="lockAmount3"
+                label="Locked(ROM)"
+                type="number"
+                fullWidth
+                defaultValue={selectedUser?.lockAmount3}
+                color='secondary'
+                variant="standard"
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                id="lockDays3"
+                label="Lock Time(Days)"
+                type="number"
+                fullWidth
+                defaultValue={selectedUser?.lockDays3}
+                color='secondary'
+                variant="standard"
+              />
+            </div>
+
+
+            {/*
             <TextField
               autoFocus
               margin="dense"
@@ -452,6 +624,7 @@ export default function Users({
               variant="standard"
               disabled
             />
+            */}
             {/*
             <TextField
               autoFocus
@@ -473,7 +646,7 @@ export default function Users({
 
             */}
 
-            <div className='flex gap-1 items-center'>
+            <div className=' mt-20 flex gap-1 items-center'>
               <input type="checkbox" defaultChecked={selectedUser?.status} id='status' className="checkbox checkbox-primary" />
               <p>Blocked</p>
             </div>
