@@ -123,6 +123,7 @@ export default function Users({
       })
   }
 
+  /*
   const deleteUser = async () => {
 
     const formInputs = {
@@ -140,6 +141,7 @@ export default function Users({
       }
     })
   }
+  */
 
 
   const rows: GridRowsProp = users.map((item: any, i: number) => {
@@ -476,7 +478,6 @@ export default function Users({
               <p>Blocked</p>
             </div>
 
-
           </DialogContent>
 
 
@@ -492,6 +493,8 @@ export default function Users({
 
         </Dialog>
       )}
+
     </>
+
   );
 }
